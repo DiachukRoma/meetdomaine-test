@@ -4,3 +4,28 @@
  */
 
 @import 'tailwindcss';
+
+:root {
+  --mm-border-gray: #e8e8e8;
+  --mm-dark: #111111;
+  --mm-blue: #0a4874;
+}
+
+@layer utilities {
+  .mm-border-gray {
+    border-color: var(--mm-border-gray);
+    border-radius: 10px;
+  }
+
+  .mm-font-dark {
+    color: var(--mm-dark);
+  }
+
+  .mm-font-blue {
+    color: var(--mm-blue);
+  }
+
+  .mm-border-blue {
+    border-color: var(--mm-blue);
+  }
+}

@@ -44,3 +44,16 @@ export function getVariantUrl({
 
   return path + (searchString ? '?' + searchParams.toString() : '');
 }
+
+export function getSecondaryImageForVariant(
+  variant: any,
+  allImages: {nodes: {url: string; altText?: string}[]},
+) {
+  const mainAlt = variant?.image?.altText;
+
+  if (!mainAlt || !allImages?.nodes?.length) return null;
+
+  const secondaryAlt = `${mainAlt}-secondary`;
+
+  return allImages.nodes.find((img) => img.altText === secondaryAlt) || null;
+}

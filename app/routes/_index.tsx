@@ -60,7 +60,7 @@ export default function Homepage() {
   const data = useLoaderData<typeof loader>();
   return (
     <div className="home">
-      <FeaturedCollection collection={data.featuredCollection} />
+      {/* <FeaturedCollection collection={data.featuredCollection} /> */}
       <RecommendedProducts products={data.recommendedProducts} />
     </div>
   );
@@ -94,8 +94,7 @@ function RecommendedProducts({
   products: Promise<RecommendedProductsQuery | null>;
 }) {
   return (
-    <div className="recommended-products">
-      <h2>Recommended Products</h2>
+    <div className="container mx-auto p-4 recommended-products">
       <Suspense fallback={<div>Loading...</div>}>
         <Await resolve={products}>
           {(response) => (
@@ -142,10 +141,28 @@ const RECOMMENDED_PRODUCTS_QUERY = `#graphql
     id
     title
     handle
-    priceRange {
-      minVariantPrice {
-        amount
-        currencyCode
+    variants(first: 10) {
+      nodes {
+        id
+        title
+        image {
+          url
+          altText
+          width
+          height
+        }
+        price {
+          amount
+          currencyCode
+        }
+        compareAtPrice {
+          amount
+          currencyCode
+        }
+        selectedOptions {
+          name
+          value
+        }
       }
     }
     featuredImage {
@@ -154,6 +171,20 @@ const RECOMMENDED_PRODUCTS_QUERY = `#graphql
       altText
       width
       height
+    }
+    images(first: 50) {
+      nodes {
+        id
+        url
+        altText
+      }
+    }
+    collections(first: 1) {
+      nodes {
+        id
+        handle
+        title
+      }
     }
   }
   query RecommendedProducts ($country: CountryCode, $language: LanguageCode)
