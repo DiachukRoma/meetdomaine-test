@@ -112,13 +112,13 @@ export function ProductItem({product}: {product: any}) {
           <span className="line-through">
             <Money
               className="text-sm mm-font-dark"
-              data={selectedVariant?.price || product.priceRange.minVariantPrice}
+              data={selectedVariant.compareAtPrice}
             />
           </span>
         )}
         <Money
           className="text-sm text-red-500"
-          data={selectedVariant.compareAtPrice}
+          data={selectedVariant?.price || product.priceRange.minVariantPrice}
         />
       </div>
     </Link>
